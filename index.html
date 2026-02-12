@@ -388,6 +388,46 @@
             background: var(--accent-light);
         }
 
+        /* ========== DOWNLOAD BUTTON ========== */
+        .download-wrap {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--heading);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 32px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .download-btn:hover {
+            background: var(--accent-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
         /* ========== FOOTER ========== */
         .cv-footer {
             margin-top: 48px;
@@ -427,6 +467,10 @@
 
         @media print {
             .formulas-canvas {
+                display: none;
+            }
+
+            .download-wrap {
                 display: none;
             }
 
@@ -614,9 +658,189 @@
         </ul>
     </div>
 
+    <div class="download-wrap">
+        <button class="download-btn" onclick="downloadDocx()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+            </svg>
+            Скачать резюме (Word)
+        </button>
+    </div>
+
     <div class="cv-footer">2025 — Шевченко В.</div>
 
 </div>
+
+<script>
+function downloadDocx() {
+    const docContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:w="urn:schemas-microsoft-com:office:word"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                @page { size: A4; margin: 2cm 2.5cm; }
+                body { font-family: Calibri, Arial, sans-serif; color: #333; line-height: 1.6; font-size: 11pt; }
+                h1 { font-family: Calibri, Arial, sans-serif; font-size: 22pt; font-weight: bold; color: #111; margin: 0 0 2pt 0; }
+                .subtitle { font-size: 11pt; color: #2563EB; letter-spacing: 2pt; text-transform: uppercase; margin-bottom: 10pt; }
+                .contacts { font-size: 10pt; color: #555; margin-bottom: 16pt; }
+                .profile-box { background: #f7f8fa; border-left: 3px solid #2563EB; padding: 10pt 14pt; margin-bottom: 20pt; font-size: 10.5pt; line-height: 1.7; }
+                h2 { font-family: Calibri, Arial, sans-serif; font-size: 12pt; font-weight: bold; color: #1A3A5C; text-transform: uppercase; letter-spacing: 1.5pt; border-bottom: 1px solid #ddd; padding-bottom: 4pt; margin: 18pt 0 10pt 0; }
+                .skill-block { margin-bottom: 12pt; }
+                .skill-label { font-size: 10pt; font-weight: bold; color: #1A3A5C; text-transform: uppercase; margin-bottom: 4pt; }
+                table.skills { width: 100%; border-collapse: collapse; margin-bottom: 6pt; }
+                table.skills td { vertical-align: top; padding: 0 10pt 10pt 0; width: 50%; font-size: 10.5pt; }
+                .exp-block { margin-bottom: 14pt; padding-left: 12pt; border-left: 2px solid #e5e7eb; }
+                .exp-title { font-size: 11pt; font-weight: bold; color: #111; }
+                .exp-period { font-size: 9pt; color: #999; }
+                ul { margin: 4pt 0 0 16pt; padding: 0; }
+                li { font-size: 10.5pt; line-height: 1.65; margin-bottom: 2pt; }
+                .tag { background: #eef2ff; color: #2563EB; padding: 1pt 5pt; font-size: 9pt; border: 1px solid #c7d2fe; }
+                .edu-name { font-weight: bold; font-size: 11pt; color: #111; }
+                .edu-detail { font-size: 10pt; color: #888; font-style: italic; }
+                .footer { margin-top: 24pt; text-align: center; font-size: 9pt; color: #bbb; border-top: 1px solid #eee; padding-top: 8pt; }
+            </style>
+        </head>
+        <body>
+            <h1>Шевченко Владимир</h1>
+            <div class="subtitle">AI / ML Engineer</div>
+            <div class="contacts">contact@shevchenko.dev &nbsp;|&nbsp; +7 701 000 0684 &nbsp;|&nbsp; Казахстан</div>
+
+            <div class="profile-box">
+                Инженер с 20+ летним опытом в проектировании и автоматизации вычислительных систем.
+                В последние годы работаю на стыке разработки и машинного обучения: проектирую AI-сервисы,
+                строю мультиагентные системы, разворачиваю ML-модели в продакшен.
+                Привык вести проект целиком — от анализа задачи до эксплуатации в рабочей среде.
+            </div>
+
+            <h2>Навыки</h2>
+            <table class="skills">
+                <tr>
+                    <td>
+                        <div class="skill-label">AI и языковые модели</div>
+                        <ul>
+                            <li>Мультиагентные системы: оркестрация, tool use, управление контекстом</li>
+                            <li>Коммерческие API (OpenAI, Anthropic); локальный инференс через Ollama и HuggingFace</li>
+                            <li>Agentic RAG на smolagents, векторный поиск, prompt engineering</li>
+                            <li>Интеграция через LiteLLM — единый интерфейс к разным провайдерам</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="skill-label">ML и обработка речи</div>
+                        <ul>
+                            <li>ASR: faster-whisper, VAD-фильтрация, мультиязычная транскрибация</li>
+                            <li>TTS с клонированием голоса по образцу</li>
+                            <li>Собственный мульти-GPU сервер для инференса; FastAPI-эндпоинты</li>
+                            <li>Развёртывание на GPU: CUDA</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="skill-label">Разработка</div>
+                        <ul>
+                            <li><b>Python</b>: FastAPI, asyncio, anyio, pandas, Polars, Panel, JupyterHub</li>
+                            <li><b>JavaScript</b>: Node.js, npm-экосистема</li>
+                            <li><b>SQL</b>: PostgreSQL, Oracle PL/SQL, оптимизация запросов</li>
+                            <li><b>Mobile</b>: Flutter &nbsp; <b>GameDev</b>: Unity</li>
+                            <li><b>Blockchain</b>: смарт-контракты на Solidity (EVM)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="skill-label">Инфраструктура</div>
+                        <ul>
+                            <li>Docker, Linux, Git, CI/CD</li>
+                            <li>Apache Airflow: оркестрация ETL/ELT пайплайнов</li>
+                            <li>Проектирование DWH, архитектура данных</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <div class="skill-block">
+                <div class="skill-label">Актуарная аналитика и финансы</div>
+                <ul>
+                    <li>IFRS 17 (GMM, PAA): проектирование расчётных модулей, автоматизация отчётности</li>
+                    <li>Актуарное моделирование: chainladder — резервы, прогнозы, треугольники развития</li>
+                    <li>Финансовые расчёты, форвардные ставки, инвестиционный анализ</li>
+                </ul>
+            </div>
+
+            <h2>Проектный опыт в AI / ML</h2>
+
+            <div class="exp-block">
+                <div><span class="exp-title">Мультиагентная система на базе LLM</span> &nbsp; <span class="exp-period">2024 — н.в.</span></div>
+                <ul>
+                    <li>Спроектировал архитектуру с несколькими агентами (ToolCallingAgent + CodeAgent) на smolagents и LiteLLM</li>
+                    <li>Подключил различные LLM-провайдеры: OpenAI, Anthropic, Ollama (Qwen, DeepSeek)</li>
+                    <li>Реализовал взаимодействие агентов с пользователем через структурированные инструменты</li>
+                    <li>Обеспечил асинхронное выполнение (asyncio, anyio) для работы под нагрузкой</li>
+                </ul>
+            </div>
+
+            <div class="exp-block">
+                <div><span class="exp-title">Speech-to-Text (ASR) и голосовой AI-пайплайн</span> &nbsp; <span class="exp-period">2024 — н.в.</span></div>
+                <ul>
+                    <li>Построил REST API на FastAPI с моделью faster-whisper (large-v3), GPU-инференс (CUDA)</li>
+                    <li>VAD-фильтрация, мультиязычная транскрибация, контейнеризация через Docker</li>
+                    <li>Интегрировал ASR и TTS-сервисы с Telegram через telethon — приём, AI-обработка и генерация голосовых сообщений</li>
+                    <li>AI-генерация ответов средствами Tools из smolagents</li>
+                </ul>
+            </div>
+
+            <div class="exp-block">
+                <div><span class="exp-title">Актуарное хранилище данных и IFRS 17</span> &nbsp; <span class="exp-period">2020 — н.в.</span></div>
+                <ul>
+                    <li>Построил data pipeline на Apache Airflow + PostgreSQL для расчётов страховых обязательств</li>
+                    <li>Разработал модули IFRS 17 (GMM, PAA) на Python, JupyterHub как окружение актуария</li>
+                    <li>Оптимизировал SQL-запросы и PL/SQL-процедуры для финансовых данных</li>
+                    <li>Создал интерактивные дашборды на Panel</li>
+                </ul>
+            </div>
+
+            <h2>Профессиональный опыт</h2>
+
+            <div class="exp-block">
+                <div><span class="exp-title">АО «Цесна Гарант»</span> &nbsp; <span class="exp-period">2011 — 2013</span></div>
+                <ul>
+                    <li>Автоматизация процессов, внедрение ISO, подготовка к рейтингу S&amp;P</li>
+                </ul>
+            </div>
+
+            <div class="exp-block">
+                <div><span class="exp-title">АО «Нефтяная страховая компания»</span> &nbsp; <span class="exp-period">2001 — 2008</span></div>
+                <ul>
+                    <li>Актуарные расчёты, автоматизация бизнес-процессов</li>
+                    <li>Концепция и управление разработкой Единой страховой базы данных (ЕСБД) — 2007</li>
+                    <li>Расчёт тарифов для рынка, защита в Парламенте — 2006</li>
+                </ul>
+            </div>
+
+            <h2>Образование</h2>
+            <p class="edu-name">Российская экономическая академия им. Г. В. Плеханова</p>
+            <p class="edu-detail">Специальность — Маркетинг</p>
+
+            <h2>Лицензии и членство</h2>
+            <ul>
+                <li>Лицензия актуария Национального банка Республики Казахстан №10</li>
+                <li>Действительный член Общества актуариев Казахстана (IAA)</li>
+            </ul>
+
+            <div class="footer">2025 — Шевченко В.</div>
+        </body>
+        </html>`;
+
+    const blob = new Blob(['\ufeff', docContent], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Shevchenko_Vladimir_CV.doc';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+</script>
 
 <script>
     const formulas = [
